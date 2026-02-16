@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class playerMove : MonoBehaviour
 {
-    [SerializeField] float speed = 1.0f;
-
     PlayerInputHandler inputHandler;
     Rigidbody2D rb;
 
@@ -25,7 +23,7 @@ public class playerMove : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 movement = inputHandler.moveInput;
-        rb.linearVelocity = movement.normalized * speed;
+        rb.linearVelocity = movement.normalized * PlayerData.currentWalkSpeed;
     }
 
     void Update()

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerPointer : MonoBehaviour
 {
@@ -6,7 +7,9 @@ public class PlayerPointer : MonoBehaviour
     PlayerInputHandler inputHandler;
     Transform playerTransform;
     bool prevBool = false;
-    GameObject currentPointerObject;
+    List<Clickable> hoveredObjects = new List<Clickable>();
+    Clickable currentPointerObject;
+    Clickable prevPointerObject;
     
     void Awake()
     {   
@@ -20,13 +23,55 @@ public class PlayerPointer : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        currentPointerObject = other.gameObject;
+        Clickable comp = other.gameObject.GetComponent<Clickable>();
+        if(comp)
+        {
+            hoveredObjects.Add(comp);
+            currentPointerObject = comp;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        Clickable comp = other.gameObject.GetComponent<Clickable>();
+        if(comp)
+        {
+            foreach(Clickable c in hoveredObjects)
+            {
+                if(c == comp)
+                {
+                    hoveredObjects.Remove(c);
+                    break;
+                }
+            }
+            
+            if(currentPointerObject == comp)
+            {
+                if(hoveredObjects.Count > 0)
+                    currentPointerObject = hoveredObjects[hoveredObjects.Count - 1];
+                else
+                    currentPointerObject = null;
+            }
+        }
     }
 
     void Update()
     {
         onLeftClick();
         movePointer();
+        updateHovers();
+    }
+
+    void updateHovers()
+    {
+        if(currentPointerObject != prevPointerObject)
+        {
+            if(prevPointerObject)
+                prevPointerObject.hoverEnd();
+            if(currentPointerObject)
+                currentPointerObject.hoverStart();
+        }
+        prevPointerObject = currentPointerObject;
     }
 
     void movePointer()
@@ -44,7 +89,8 @@ public class PlayerPointer : MonoBehaviour
     {
         if(inputHandler.leftClick && !prevBool)
         {
-            Debug.Log("Left clicked");
+            if(currentPointerObject)
+                currentPointerObject.clicked();
         }
         prevBool = inputHandler.leftClick;
     }
