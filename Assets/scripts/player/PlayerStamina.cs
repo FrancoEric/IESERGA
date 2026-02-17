@@ -10,7 +10,7 @@ public class PlayerStamina : MonoBehaviour
 
     void Awake()
     {
-
+        resetStamina();
     }
 
     void Start()
@@ -28,12 +28,12 @@ public class PlayerStamina : MonoBehaviour
     {
         if(inputHandler.moveInput.magnitude > 0 && !inputHandler.sprinting)
         {
-            PlayerData.currentStamina -= PlayerData.currentStaminaDrain * Time.deltaTime;
+            PlayerData.currentStamina -= PlayerData.currentStaminaDrain * PlayerData.currentWeightStaminaDrainMultiplier * Time.deltaTime;
             staminaRegenTimer = 0f;
         }
         else if(inputHandler.moveInput.magnitude > 0 && inputHandler.sprinting)
         {
-            PlayerData.currentStamina -= PlayerData.currentStaminaDrain * PlayerData.sprintStaminaDrainMultiplier * Time.deltaTime;
+            PlayerData.currentStamina -= PlayerData.currentStaminaDrain * PlayerData.sprintStaminaDrainMultiplier * PlayerData.currentWeightStaminaDrainMultiplier * Time.deltaTime;
             staminaRegenTimer = 0f;
         }
         else
@@ -45,5 +45,10 @@ public class PlayerStamina : MonoBehaviour
 
         if(PlayerData.currentStamina < 0)
             PlayerData.currentStamina = 0;
+    }
+
+    public void resetStamina()
+    {
+        PlayerData.currentStamina = PlayerData.currentMaxStamina * PlayerData.currentInitialStaminaRatio;
     }
 }
