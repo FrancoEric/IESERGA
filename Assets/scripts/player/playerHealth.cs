@@ -16,6 +16,8 @@ public class PlayerHealth : MonoBehaviour
     public void takeDamage(float dmg)
     {
         PlayerData.currentHealth -= dmg;
+        if(PlayerData.currentHealth < 0)
+            PlayerData.currentHealth = 0;
         regenTimer = hpRegenDelay;
     }
 

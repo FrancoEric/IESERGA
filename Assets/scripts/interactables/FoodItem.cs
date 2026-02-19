@@ -77,11 +77,12 @@ public class FoodItem : MonoBehaviour
         {
             //clickableComp.isClicked = false;
 
-            PlayerData.protein += proteinAmount;
-            PlayerData.carbs += carbAmount; 
-            PlayerData.fats += fatAmount;
+            PlayerData.protein += proteinAmount * servingSize;
+            PlayerData.carbs += carbAmount * servingSize; 
+            PlayerData.fats += fatAmount * servingSize;
+            PlayerData.currentBackpackWeight += weightPerServing * servingSize;
 
-            Debug.Log("Ate " + foodName + ". Protein: " + PlayerData.protein + ", Carbs: " + PlayerData.carbs + ", Fats: " + PlayerData.fats);
+            //Debug.Log("Ate " + foodName + ". Protein: " + PlayerData.protein + ", Carbs: " + PlayerData.carbs + ", Fats: " + PlayerData.fats);
 
             gameObject.SetActive(false);
         }
