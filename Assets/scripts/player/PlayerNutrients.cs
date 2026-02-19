@@ -18,7 +18,7 @@ public class PlayerNutrients : MonoBehaviour
 
         PlayerData.currentMaxHealth = PlayerData.baseMaxHealth + (PlayerData.protein * proteinToHealthMultiplier);
         PlayerData.currentHealthRegenSpeed = PlayerData.baseHealthRegenSpeed + (PlayerData.fats * fatToHealthRegenMultiplier);
-        PlayerData.currentHealthRegenAmount = PlayerData.baseHealthRegenAmount + (PlayerData.fats * fatToHealthRegenMultiplier);
+        PlayerData.currentHealthRegenAmount = PlayerData.baseMaxHealthRegenAmount + (PlayerData.fats * fatToHealthRegenMultiplier);
 
         PlayerData.currentMaxStamina = PlayerData.baseStamina + (PlayerData.carbs * carbToStaminaMultiplier) + (PlayerData.fats * fatToStaminaMultiplier) + (PlayerData.protein * proteinToStaminaMultiplier);
         PlayerData.currentInitialStaminaRatio = PlayerData.baseInitialStaminaRatio + (PlayerData.carbs * carbToInitialStaminaMultiplier);

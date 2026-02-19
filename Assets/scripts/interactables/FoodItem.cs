@@ -1,13 +1,18 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class FoodItem : MonoBehaviour
 {
     [SerializeField] string foodName;
     [SerializeField] string description;
-    [SerializeField] float proteinAmount = 0f;
-    [SerializeField] float carbAmount = 0f;
-    [SerializeField] float fatAmount = 0f;
+    [SerializeField] int servingSize = 0;
+    [SerializeField] int weightPerServing = 0;
+    [SerializeField] int proteinAmount = 0;
+    [SerializeField] int carbAmount = 0;
+    [SerializeField] int fatAmount = 0;
+    [SerializeField] Sprite foodSprite;
+    [SerializeField] Image foodPic;
     [SerializeField] TextMeshPro foodNameText;
     [SerializeField] TextMeshPro descriptionText;
     [SerializeField] TextMeshPro strengthText;
@@ -17,14 +22,32 @@ public class FoodItem : MonoBehaviour
     [SerializeField] TextMeshPro initstamText;
     [SerializeField] TextMeshPro stamregenText;
     [SerializeField] TextMeshPro speedText;
+    [SerializeField] TextMeshPro servingsText;
+    [SerializeField] TextMeshPro servingSizeText;
+    [SerializeField] TextMeshPro caloriesText;
+    [SerializeField] TextMeshPro fatText;
+    [SerializeField] TextMeshPro carbsText;
+    [SerializeField] TextMeshPro proteinsText;
     Clickable_Item clickableComp;
+    int calories;
 
     void Awake()
     {
         clickableComp = GetComponentInChildren<Clickable_Item>();
 
+        foodPic.sprite = foodSprite;
+
+        calories = fatAmount * 9 + carbAmount * 4 + proteinAmount * 4;
+        caloriesText.text = calories.ToString();
+
         foodNameText.text = foodName;
         descriptionText.text = description;
+        servingSizeText.text = servingSize.ToString();
+        servingsText.text = weightPerServing.ToString() + "g";
+
+        proteinsText.text = proteinAmount.ToString() + "g";
+        fatText.text = fatAmount.ToString() + "g";
+        carbsText.text = carbAmount.ToString() + "g";
 
         //no amount balancing yet, just show the stat increase if there is any
         if(proteinAmount > 0)

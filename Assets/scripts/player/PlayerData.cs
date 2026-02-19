@@ -10,7 +10,7 @@ static public class PlayerData
     //modify these stats to balance 
     public static float baseMaxHealth = 100f;
     public static float baseHealthRegenSpeed = 1f;
-    public static float baseHealthRegenAmount = 50f;
+    public static float baseMaxHealthRegenAmount = 50f;
     public static float crawlSpeed = 1f; //doesnt need a current ver
     public static float baseWalkSpeed = 3f;
     public static float baseRunSpeed = 5f;
@@ -25,7 +25,8 @@ static public class PlayerData
     public static float currentMaxHealth = baseMaxHealth;
     public static float currentHealth = baseMaxHealth;
     public static float currentHealthRegenSpeed = baseHealthRegenSpeed;
-    public static float currentHealthRegenAmount = baseHealthRegenAmount;
+    public static float currentMaxHealthRegenAmount = baseMaxHealthRegenAmount;
+    public static float currentHealthRegenAmount = baseMaxHealthRegenAmount;
     public static float currentWalkSpeed = baseWalkSpeed;   
     public static float currentRunSpeed = baseRunSpeed;
     public static float currentMaxStamina = baseStamina;
