@@ -27,10 +27,11 @@ public class Stunable : Clickable
 
     public override void clicked()
     {
-        if(stunDuration <= 0)
+        if(stunDuration <= 0 && PlayerData.currentStamina >= PlayerData.attackStaminaCost)
         {
             stunDuration = PlayerData.currentStrength;
             StartCoroutine(stunFlash(Color.black, 0.3f));
+            EventBroadcaster.Instance.PostEvent(EventNames.STUN_CONFIRMED);
         }
     }
 

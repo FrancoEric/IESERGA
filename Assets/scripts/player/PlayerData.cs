@@ -20,6 +20,7 @@ static public class PlayerData
     public static float baseStaminaRegen = 5f;
     public static float sprintStaminaDrainMultiplier = 2.5f; //doesnt need a current ver
     public static float baseStrength = 1f; //stun duration basically
+    public static float attackStaminaCost = 40f; //no current ver 
 
     //only use current vers in code as the "main" stat vars
     public static float currentMaxHealth = baseMaxHealth;

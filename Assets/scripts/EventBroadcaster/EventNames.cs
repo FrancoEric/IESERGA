@@ -7,11 +7,8 @@ using System.Collections;
  */
 public class EventNames
 {
-	//Room stuff
-	public const string ROOM_CHANGE = "ROOM_CHANGE";
-
-	//entity tuff
-	public const string DEATH = "DEATH";
+	//zombie tuff
+	public const string STUN_CONFIRMED = "STUN_CONFIRMED";
 }
 
 

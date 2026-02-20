@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class PlayerStamina : MonoBehaviour
 {
     [SerializeField] Slider stamSlider;
+    [SerializeField] Slider attackSlider;
     [SerializeField] float staminaRegenDelay = 2f;
     float staminaRegenTimer = 0f;
     PlayerInputHandler inputHandler;
@@ -11,6 +12,7 @@ public class PlayerStamina : MonoBehaviour
     void Awake()
     {
         resetStamina();
+        EventBroadcaster.Instance.AddObserver(EventNames.STUN_CONFIRMED, this.attacked);
     }
 
     void Start()
@@ -22,6 +24,7 @@ public class PlayerStamina : MonoBehaviour
     {
         updateStamina();
         stamSlider.value = PlayerData.currentStamina / PlayerData.currentMaxStamina;
+        attackSlider.value = PlayerData.attackStaminaCost / PlayerData.currentMaxStamina;
     }
 
     void updateStamina()
@@ -50,5 +53,10 @@ public class PlayerStamina : MonoBehaviour
     public void resetStamina()
     {
         PlayerData.currentStamina = PlayerData.currentMaxStamina * PlayerData.currentInitialStaminaRatio;
+    }
+
+    void attacked()
+    {
+        PlayerData.currentStamina -= PlayerData.attackStaminaCost;
     }
 }
