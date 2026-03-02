@@ -38,6 +38,7 @@ static public class PlayerData
     public static float currentStrength = baseStrength; 
 
     //the backpack stuff 
+    public static int baseBackpackSize = 10;
     public static float currentBackpackWeight = 0f;
     public static float baseWeightStaminaDrainMultiplier = 1.2f; 
     public static float currentWeightStaminaDrainMultiplier = baseWeightStaminaDrainMultiplier; 

@@ -31,12 +31,12 @@ public class PlayerStamina : MonoBehaviour
     {
         if(inputHandler.moveInput.magnitude > 0 && !inputHandler.sprinting)
         {
-            PlayerData.currentStamina -= PlayerData.currentStaminaDrain * PlayerData.currentWeightStaminaDrainMultiplier * Time.deltaTime;
+            PlayerData.currentStamina -= PlayerData.currentStaminaDrain * (PlayerData.currentWeightStaminaDrainMultiplier * PlayerData.currentBackpackWeight) * Time.deltaTime;
             staminaRegenTimer = 0f;
         }
         else if(inputHandler.moveInput.magnitude > 0 && inputHandler.sprinting)
         {
-            PlayerData.currentStamina -= PlayerData.currentStaminaDrain * PlayerData.sprintStaminaDrainMultiplier * PlayerData.currentWeightStaminaDrainMultiplier * Time.deltaTime;
+            PlayerData.currentStamina -= PlayerData.currentStaminaDrain * PlayerData.sprintStaminaDrainMultiplier * (PlayerData.currentWeightStaminaDrainMultiplier * PlayerData.currentBackpackWeight) * Time.deltaTime;
             staminaRegenTimer = 0f;
         }
         else

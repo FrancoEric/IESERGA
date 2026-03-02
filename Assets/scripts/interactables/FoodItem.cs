@@ -4,14 +4,8 @@ using TMPro;
 
 public class FoodItem : MonoBehaviour
 {
-    [SerializeField] string foodName;
-    [SerializeField] string description;
-    [SerializeField] int servingSize = 0;
-    [SerializeField] int weightPerServing = 0;
-    [SerializeField] int proteinAmount = 0;
-    [SerializeField] int carbAmount = 0;
-    [SerializeField] int fatAmount = 0;
-    [SerializeField] Sprite foodSprite;
+    [SerializeField] string itemName;
+    [SerializeField] int servingSize;
     [SerializeField] Image foodPic;
     [SerializeField] TextMeshPro foodNameText;
     [SerializeField] TextMeshPro descriptionText;
@@ -29,43 +23,50 @@ public class FoodItem : MonoBehaviour
     [SerializeField] TextMeshPro carbsText;
     [SerializeField] TextMeshPro proteinsText;
     Clickable_Item clickableComp;
-    int calories;
+    Item item;
+    float calories;
 
-    void Awake()
+    void Start()
     {
         clickableComp = GetComponentInChildren<Clickable_Item>();
 
-        foodPic.sprite = foodSprite;
-
-        calories = fatAmount * 9 + carbAmount * 4 + proteinAmount * 4;
-        caloriesText.text = calories.ToString();
-
-        foodNameText.text = foodName;
-        descriptionText.text = description;
-        servingSizeText.text = servingSize.ToString();
-        servingsText.text = weightPerServing.ToString() + "g";
-
-        proteinsText.text = proteinAmount.ToString() + "g";
-        fatText.text = fatAmount.ToString() + "g";
-        carbsText.text = carbAmount.ToString() + "g";
-
-        //no amount balancing yet, just show the stat increase if there is any
-        if(proteinAmount > 0)
+        item = ItemLibrary.Instance.getItemByName(itemName);
+        if(!item)
         {
-            strengthText.text = "Strength ↑";
-            maxhpText.text = "Max HP ↑";
-            speedText.text = "Speed ↑";
+            Debug.Log(itemName + " is not a valid name for object " + gameObject.name);
         }
 
-        if(carbAmount > 0)
+        foodPic.sprite = item.sprite;
+
+        calories = item.fat * 9 + item.carbs * 4 + item.protein * 4;
+        caloriesText.text = calories.ToString();
+
+        foodNameText.text = item.Name;
+        descriptionText.text = item.desc;
+        servingsText.text = servingSize.ToString();
+        servingSizeText.text = item.weight.ToString() + "g";
+
+        proteinsText.text = item.protein.ToString() + "g";
+        fatText.text = item.fat.ToString() + "g";
+        carbsText.text = item.carbs.ToString() + "g";
+
+        //no amount balancing yet, just show the stat increase if there is any
+        if(item.protein > 0)
+        {
+            strengthText.text = "Strength ↑";
+            maxhpText.text = "Vitality ↑";
+            speedText.text = "Mobility ↑";
+        }
+
+        if(item.carbs > 0)
         {
             maxstamText.text = "Max Stamina ↑";
             initstamText.text = "Initial Stamina ↑";
         }
 
-        if(fatAmount > 0)
+        if(item.fat > 0)
         {
-            hpregenText.text = "HP Regen ↑";
+            hpregenText.text = "Wound Recovery ↑";
             stamregenText.text = "Stamina Regen ↑";
             maxstamText.text = "Max Stamina ↑";
         }
@@ -77,10 +78,7 @@ public class FoodItem : MonoBehaviour
         {
             //clickableComp.isClicked = false;
 
-            PlayerData.protein += proteinAmount * servingSize;
-            PlayerData.carbs += carbAmount * servingSize; 
-            PlayerData.fats += fatAmount * servingSize;
-            PlayerData.currentBackpackWeight += weightPerServing * servingSize;
+            BackpackManager.Instance.addItem(item, servingSize);
 
             //Debug.Log("Ate " + foodName + ". Protein: " + PlayerData.protein + ", Carbs: " + PlayerData.carbs + ", Fats: " + PlayerData.fats);
 
