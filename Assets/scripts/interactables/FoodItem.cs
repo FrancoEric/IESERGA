@@ -24,7 +24,6 @@ public class FoodItem : MonoBehaviour
     [SerializeField] TextMeshPro proteinsText;
     Clickable_Item clickableComp;
     Item item;
-    float calories;
 
     void Start()
     {
@@ -38,8 +37,8 @@ public class FoodItem : MonoBehaviour
 
         foodPic.sprite = item.sprite;
 
-        calories = item.fat * 9 + item.carbs * 4 + item.protein * 4;
-        caloriesText.text = calories.ToString();
+        item.calories = item.fat * 9 + item.carbs * 4 + item.protein * 4;
+        caloriesText.text = item.calories.ToString();
 
         foodNameText.text = item.Name;
         descriptionText.text = item.desc;

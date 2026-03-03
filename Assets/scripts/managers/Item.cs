@@ -11,4 +11,5 @@ public class Item : ScriptableObject
     public float carbs;
     public float fat;
     public float protein;
+    public float calories;
 }

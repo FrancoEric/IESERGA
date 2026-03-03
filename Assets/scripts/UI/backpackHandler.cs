@@ -9,8 +9,10 @@ public class BackpackHandler : MonoBehaviour
     [SerializeField] GameObject slotPrefab;
     [SerializeField] GameObject weightParent;
     [SerializeField] TextMeshProUGUI totalWeightText;
+    [SerializeField] GameObject popupParent;
     BackpackSlot[] slots;
     BackpackManager managerInstance;
+    BackpackPopup backpackPopup;
     bool prevBool = false;
 
     void Awake()
@@ -18,6 +20,7 @@ public class BackpackHandler : MonoBehaviour
         for(int i = 0; i < PlayerData.baseBackpackSize; i++)
             Instantiate(slotPrefab, GridParent.transform);
         slots = GridParent.transform.GetComponentsInChildren<BackpackSlot>();
+        backpackPopup = GetComponentInChildren<BackpackPopup>();
         //Debug.Log(slots.Length);
     }
 
@@ -26,6 +29,7 @@ public class BackpackHandler : MonoBehaviour
         managerInstance = BackpackManager.Instance;
         GridParent.SetActive(false);
         weightParent.SetActive(false);
+        popupParent.SetActive(false);
     }
 
     public void toggle()
@@ -72,9 +76,29 @@ public class BackpackHandler : MonoBehaviour
         PlayerData.currentBackpackWeight = total;
     }
 
+    void hoverCheck()
+    {
+        bool check = false;
+        foreach(BackpackSlot slot in slots)
+        {
+            if(slot.isHovered)
+            {
+                check = true;
+                backpackPopup.putNewItem(slot.backpackData);
+                break;
+            }
+        }
+
+        if(check && backpackPopup.currentData.itemType.itemType != BackpackItemType.None)
+            popupParent.SetActive(true);
+        else
+            popupParent.SetActive(false);
+    }
+
     public void Update()
     {
         managerUpdateCheck();
         playerInputCheck();
+        hoverCheck();
     }
 }
