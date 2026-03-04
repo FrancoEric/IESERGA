@@ -22,6 +22,8 @@ public class BackpackHandler : MonoBehaviour
         slots = GridParent.transform.GetComponentsInChildren<BackpackSlot>();
         backpackPopup = GetComponentInChildren<BackpackPopup>();
         //Debug.Log(slots.Length);
+
+        EventBroadcaster.Instance.AddObserver(EventNames.OPEN_STATS, close);
     }
 
     void Start()
@@ -36,6 +38,15 @@ public class BackpackHandler : MonoBehaviour
     {
         GridParent.SetActive(!GridParent.activeSelf);
         weightParent.SetActive(!weightParent.activeSelf);
+
+        if(GridParent.activeSelf)
+            EventBroadcaster.Instance.PostEvent(EventNames.OPEN_BACKPACK);
+    }
+
+    void close()
+    {
+        GridParent.SetActive(false);
+        weightParent.SetActive(false);
     }
 
     void managerUpdateCheck()

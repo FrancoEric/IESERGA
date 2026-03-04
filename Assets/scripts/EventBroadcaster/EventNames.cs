@@ -15,6 +15,10 @@ public class EventNames
 
 	//zombie stuff
 	public const string STUN_CONFIRMED = "STUN_CONFIRMED";
+
+	//ui stuff
+	public const string OPEN_BACKPACK = "OPEN_BACKPACK";
+	public const string OPEN_STATS = "OPEN_STATS";
 }
 
 

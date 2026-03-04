@@ -8,10 +8,20 @@ public class PlayerStatsUIHandler : MonoBehaviour
     [SerializeField] TextMeshProUGUI proteinText;
     [SerializeField] TextMeshProUGUI carbsText;
     [SerializeField] TextMeshProUGUI fatText;
+    [SerializeField] TextMeshProUGUI strengthText;
+    [SerializeField] TextMeshProUGUI vitalityText;
+    [SerializeField] TextMeshProUGUI recoveryText;
+    [SerializeField] TextMeshProUGUI mobilityText;
+    [SerializeField] TextMeshProUGUI maxStaminaText;
+    [SerializeField] TextMeshProUGUI initStaminaText;
+    [SerializeField] TextMeshProUGUI stamregenText;
+    bool prevBool = false;
 
     void Awake()
     {
         playerStatsParent.SetActive(false);
+
+        EventBroadcaster.Instance.AddObserver(EventNames.OPEN_BACKPACK, close);
     }
 
     void Update()
@@ -19,10 +29,36 @@ public class PlayerStatsUIHandler : MonoBehaviour
         proteinText.text = "Protein: " + PlayerData.protein.ToString();
         carbsText.text = "Carbs: " + PlayerData.carbs.ToString();
         fatText.text = "Fat: " + PlayerData.fats.ToString();
+        strengthText.text = "Strength: " + PlayerData.currentStrength.ToString();
+        vitalityText.text = "Vitality: " + PlayerData.currentMaxHealth.ToString();
+        recoveryText.text = "Wound Recovery: " + PlayerData.currentHealthRegenSpeed.ToString();
+        mobilityText.text = "Mobility: " + PlayerData.currentRunSpeed.ToString();
+        maxStaminaText.text = "Max Stamina: " + PlayerData.currentMaxStamina.ToString();
+        initStaminaText.text = "Initial Stamina: " + PlayerData.currentInitialStaminaRatio.ToString();
+        stamregenText.text = "Stamina Regen: " + PlayerData.currentStaminaRegen.ToString();
+
+        playerInputCheck();
+    }
+
+    void playerInputCheck()
+    {
+        bool currentBool = PlayerInputHandler.Instance.stats;
+        if(currentBool != prevBool && currentBool)
+            toggle();
+
+        prevBool = currentBool;
     }
 
     public void toggle()
     {
         playerStatsParent.SetActive(!playerStatsParent.activeSelf);
+
+        if(playerStatsParent.activeSelf)
+            EventBroadcaster.Instance.PostEvent(EventNames.OPEN_STATS);
+    }
+
+    void close()
+    {
+        playerStatsParent.SetActive(false);
     }
 }

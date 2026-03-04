@@ -30,6 +30,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool leftClick {get; private set; }
     public bool sprinting {get; private set; }
     public bool backpack {get; private set; }
+    public bool stats {get; private set; }
 
     void OnEnable()
     {
@@ -48,6 +49,10 @@ public class PlayerInputHandler : MonoBehaviour
 
         controls.Player.Backpack.performed += ctx => backpack = true;
         controls.Player.Backpack.canceled += ctx => backpack = false;
+
+        controls.Player.Stats.performed += ctx => stats = true;
+        controls.Player.Stats.canceled += ctx => stats = false;
+        
     }
 
     void OnDisable()
