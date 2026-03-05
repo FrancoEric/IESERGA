@@ -14,6 +14,11 @@ public class BackpackSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         img = transform.GetChild(0).GetComponent<Image>();
         numberText = transform.GetComponentInChildren<TextMeshProUGUI>();
+        
+    }
+
+    void Start()
+    {
         backpackData = new BackpackData(ItemLibrary.Instance.getItemByName("None"),0);
     }
 

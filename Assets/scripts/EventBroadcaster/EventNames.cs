@@ -19,6 +19,8 @@ public class EventNames
 	//ui stuff
 	public const string OPEN_BACKPACK = "OPEN_BACKPACK";
 	public const string OPEN_STATS = "OPEN_STATS";
+	public const string FADE_TO_BLACK = "FADE_TO_BLACK";
+	public const string FADE_FROM_BLACK = "FADE_FROM_BLACK";
 }
 
 

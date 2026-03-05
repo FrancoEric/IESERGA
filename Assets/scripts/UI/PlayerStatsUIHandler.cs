@@ -20,8 +20,16 @@ public class PlayerStatsUIHandler : MonoBehaviour
     void Awake()
     {
         playerStatsParent.SetActive(false);
+    }
 
+    void OnEnable()
+    {
         EventBroadcaster.Instance.AddObserver(EventNames.OPEN_BACKPACK, close);
+    }
+
+    void OnDisable()
+    {
+        EventBroadcaster.Instance.RemoveActionAtObserver(EventNames.OPEN_BACKPACK, close);
     }
 
     void Update()

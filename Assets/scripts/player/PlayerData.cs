@@ -42,4 +42,7 @@ static public class PlayerData
     public static float currentBackpackWeight = 0f;
     public static float baseWeightStaminaDrainMultiplier = 1.2f; 
     public static float currentWeightStaminaDrainMultiplier = baseWeightStaminaDrainMultiplier; 
+
+    //level stuff 
+    public static int currentLevelIndexUnlocked = 0;
 }
