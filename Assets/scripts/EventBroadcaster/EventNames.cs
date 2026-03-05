@@ -21,6 +21,8 @@ public class EventNames
 	public const string OPEN_STATS = "OPEN_STATS";
 	public const string FADE_TO_BLACK = "FADE_TO_BLACK";
 	public const string FADE_FROM_BLACK = "FADE_FROM_BLACK";
+	public const string PAUSE_START = "PAUSE_START";
+	public const string PAUSE_END = "PAUSE_END";
 }
 
 
