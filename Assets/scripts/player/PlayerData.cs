@@ -22,7 +22,7 @@ static public class PlayerData
     public static float baseStrength = 1f; //stun duration basically
     public static float attackStaminaCost = 40f; //no current ver 
 
-    //only use current vers in code as the "main" stat vars
+    //the player's current saved stats 
     public static float currentMaxHealth = baseMaxHealth;
     public static float currentHealth = baseMaxHealth;
     public static float currentHealthRegenSpeed = baseHealthRegenSpeed;
@@ -37,6 +37,62 @@ static public class PlayerData
     public static float currentStaminaRegen = baseStaminaRegen;
     public static float currentStrength = baseStrength; 
 
+    //local vers of the current stats for instances 
+    public static float localProtein = protein;
+    public static float localCarbs = carbs;
+    public static float localFats = fats;
+    public static float localMaxHealth = baseMaxHealth;
+    public static float localHealth = baseMaxHealth;
+    public static float localHealthRegenSpeed = baseHealthRegenSpeed;
+    public static float localMaxHealthRegenAmount = baseMaxHealthRegenAmount;
+    public static float localHealthRegenAmount = baseMaxHealthRegenAmount;
+    public static float localWalkSpeed = baseWalkSpeed;   
+    public static float localRunSpeed = baseRunSpeed;
+    public static float localMaxStamina = baseStamina;
+    public static float localStamina = baseStamina;
+    public static float localInitialStaminaRatio = baseInitialStaminaRatio;
+    public static float localStaminaDrain = baseStaminaDrain;
+    public static float localStaminaRegen = baseStaminaRegen;
+    public static float localStrength = baseStrength; 
+    public static void localToCurrent()
+    {
+        protein = localProtein;
+        carbs = localCarbs;
+        fats = localFats;
+        currentMaxHealth = localMaxHealth;
+        currentHealth = localHealth;
+        currentHealthRegenSpeed = localHealthRegenSpeed;
+        currentMaxHealthRegenAmount = localMaxHealthRegenAmount;
+        currentHealthRegenAmount = localHealthRegenAmount;
+        currentWalkSpeed = localWalkSpeed;   
+        currentRunSpeed = localRunSpeed;
+        currentMaxStamina = localMaxStamina;
+        currentStamina = localStamina;
+        currentInitialStaminaRatio = localInitialStaminaRatio;
+        currentStaminaDrain = localStaminaDrain;
+        currentStaminaRegen = localStaminaRegen;
+        currentStrength = localStrength;
+    }
+    public static void currentToLocal()
+    {
+        localProtein = protein;
+        localCarbs = carbs;
+        localFats = fats;
+        localMaxHealth = currentMaxHealth;
+        localHealth = currentHealth;
+        localHealthRegenSpeed = currentHealthRegenSpeed;
+        localMaxHealthRegenAmount = currentMaxHealthRegenAmount;
+        localHealthRegenAmount = currentHealthRegenAmount;
+        localWalkSpeed = currentWalkSpeed;   
+        localRunSpeed = currentRunSpeed;
+        localMaxStamina = currentMaxStamina;
+        localStamina = currentStamina;
+        localInitialStaminaRatio = currentInitialStaminaRatio;
+        localStaminaDrain = currentStaminaDrain;
+        localStaminaRegen = currentStaminaRegen;
+        localStrength = currentStrength;    
+    }
+
     //the backpack stuff 
     public static int baseBackpackSize = 10;
     public static float currentBackpackWeight = 0f;
@@ -45,4 +101,7 @@ static public class PlayerData
 
     //level stuff 
     public static int currentLevelIndexUnlocked = 0;
+
+    //misc stuff
+    public static float blackScreenFadeTime = 1f;
 }

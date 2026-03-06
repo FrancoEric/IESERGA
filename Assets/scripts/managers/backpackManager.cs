@@ -13,6 +13,7 @@ public class BackpackManager : MonoBehaviour
 {
     public static BackpackManager Instance {get; private set; }
     public List<BackpackData> backpackData {get;private set;} = new List<BackpackData>();
+    public List<BackpackData> localBackpack {get;private set;} = new List<BackpackData>();
     public bool newItem = false;
     
     void Awake()
@@ -61,5 +62,14 @@ public class BackpackManager : MonoBehaviour
                     backpackData.RemoveAt(i);
                 newItem = true;
             }
+    }
+
+    public void copyLocalToMain()
+    {
+        backpackData.Clear();
+        foreach(BackpackData data in localBackpack)
+            backpackData.Add(data);
+            
+        newItem = true;
     }
 }

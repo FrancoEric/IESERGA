@@ -23,6 +23,7 @@ public class EventNames
 	public const string FADE_FROM_BLACK = "FADE_FROM_BLACK";
 	public const string PAUSE_START = "PAUSE_START";
 	public const string PAUSE_END = "PAUSE_END";
+	public const string FINISHED_BREAKFAST = "FINISHED_BREAKFAST";
 }
 
 

@@ -4,7 +4,6 @@ using System.Collections;
 
 public class BlackScreenHandler : MonoBehaviour
 {
-    [SerializeField] float fadeTime = 1f;
     [SerializeField] float pauseAlpha = 0.3f;
     Image img;
 
@@ -20,8 +19,7 @@ public class BlackScreenHandler : MonoBehaviour
 
     void Start()
     {
-        img.CrossFadeAlpha(1, 0, false);
-        fadeFromBlack();
+        img.CrossFadeAlpha(0, 0, false);
     }
 
     void pause()
@@ -36,11 +34,11 @@ public class BlackScreenHandler : MonoBehaviour
 
     void fadeToBlack()
     {
-        img.CrossFadeAlpha(1, fadeTime, false);
+        img.CrossFadeAlpha(1, PlayerData.blackScreenFadeTime, false);
     }
 
     void fadeFromBlack()
     {
-        img.CrossFadeAlpha(0, fadeTime, false);
+        img.CrossFadeAlpha(0, PlayerData.blackScreenFadeTime, false);
     }
 }
