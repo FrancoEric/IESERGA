@@ -6,13 +6,14 @@ using TMPro;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] float calorieGoal;
+    [SerializeField] string levelSelectorSceneName = "level selection";
     [SerializeField] TextMeshProUGUI calorieGoalText;
     [SerializeField] TextMeshProUGUI currentCaloriesText;
     BackpackManager backpackManagerInstance;
 
     void Awake()
     {
-        
+        EventBroadcaster.Instance.AddObserver(EventNames.FINISH_TRIGGER, backToLevels);
     }
 
     void Start()
@@ -33,5 +34,10 @@ public class LevelManager : MonoBehaviour
             calories += data.itemType.calories * data.amount;
 
         return calories;
+    }
+
+    void backToLevels()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(levelSelectorSceneName);
     }
 }

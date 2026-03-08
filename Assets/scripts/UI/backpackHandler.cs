@@ -60,30 +60,26 @@ public class BackpackHandler : MonoBehaviour
 
     void managerUpdateCheck()
     {
-        if(managerInstance.newItem)
+
+        for(int i = 0; i < PlayerData.baseBackpackSize; i++)
         {
-            managerInstance.newItem = false;
-
-            for(int i = 0; i < PlayerData.baseBackpackSize; i++)
+            if(isLocal)
             {
-                if(isLocal)
-                {
-                    if(i < managerInstance.localBackpack.Count)
-                        slots[i].backpackData = managerInstance.localBackpack[i];
-                    else    
-                        slots[i].backpackData = new BackpackData(ItemLibrary.Instance.getItemByName("None"),0);
-                }
-                else
-                {
-                    if(i < managerInstance.backpackData.Count)
-                        slots[i].backpackData = managerInstance.backpackData[i];
-                    else    
-                        slots[i].backpackData = new BackpackData(ItemLibrary.Instance.getItemByName("None"),0);
-                }
+                if(i < managerInstance.localBackpack.Count)
+                    slots[i].backpackData = managerInstance.localBackpack[i];
+                else    
+                    slots[i].backpackData = new BackpackData(ItemLibrary.Instance.getItemByName("None"),0);
             }
-
-            weightUpdate();
+            else
+            {
+                if(i < managerInstance.backpackData.Count)
+                    slots[i].backpackData = managerInstance.backpackData[i];
+                else    
+                    slots[i].backpackData = new BackpackData(ItemLibrary.Instance.getItemByName("None"),0);
+            }
         }
+
+        weightUpdate();
     }
 
     void playerInputCheck()

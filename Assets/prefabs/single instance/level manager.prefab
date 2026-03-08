@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2950d42b1ce03c949b4d0ee579c084ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
-  calorieGoal: 0
+  calorieGoal: 1200
+  levelSelectorSceneName: level selection
   calorieGoalText: {fileID: 0}
   currentCaloriesText: {fileID: 0}

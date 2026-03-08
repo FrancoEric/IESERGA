@@ -48,7 +48,8 @@ public class EatingScreen : MonoBehaviour
         for(int i = 0; i < PlayerData.baseBackpackSize; i++)
         {
             GameObject slot = Instantiate(slotPrefab, gridParent.transform);
-            slot.GetComponent<Button>().onClick.AddListener(delegate {selectItem(i);});
+            int index = i;
+            slot.GetComponentInChildren<Button>().onClick.AddListener(() => selectItem(index));
             slots[i] = slot.GetComponent<EatingSlot>();
         }
     }
@@ -108,6 +109,7 @@ public class EatingScreen : MonoBehaviour
 
     public void selectItem(int index)
     {
+        Debug.Log("Clicked " + index);
         if(index >= backpackManager.localBackpack.Count)
             return;
 
@@ -194,7 +196,6 @@ public class EatingScreen : MonoBehaviour
     {
         intData();
         PlayerData.currentToLocal();
-        updateSlotData();
     }
 
     public void finishEatingButton()
@@ -216,5 +217,6 @@ public class EatingScreen : MonoBehaviour
     void Update()
     {
         updateStats();
+        updateSlotData();
     }
 }

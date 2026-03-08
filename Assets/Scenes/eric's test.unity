@@ -1427,10 +1427,6 @@ PrefabInstance:
       value: level manager
       objectReference: {fileID: 0}
     - target: {fileID: 8825404603265935214, guid: 93ad7074f2d06794a975fd07558d5991, type: 3}
-      propertyPath: calorieGoal
-      value: 1200
-      objectReference: {fileID: 0}
-    - target: {fileID: 8825404603265935214, guid: 93ad7074f2d06794a975fd07558d5991, type: 3}
       propertyPath: calorieGoalText
       value: 
       objectReference: {fileID: 1090975559}
