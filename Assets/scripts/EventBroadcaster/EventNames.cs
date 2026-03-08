@@ -24,6 +24,7 @@ public class EventNames
 	public const string PAUSE_START = "PAUSE_START";
 	public const string PAUSE_END = "PAUSE_END";
 	public const string FINISHED_BREAKFAST = "FINISHED_BREAKFAST";
+	public const string FINISH_TRIGGER = "FINISH_TRIGGER";
 }
 
 

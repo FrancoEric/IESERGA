@@ -29,7 +29,7 @@ public class LevelManager : MonoBehaviour
     float getCurrentCalories()
     {
         float calories = 0;
-        foreach(BackpackData data in backpackManagerInstance.backpackData)
+        foreach(BackpackData data in backpackManagerInstance.localBackpack)
             calories += data.itemType.calories * data.amount;
 
         return calories;

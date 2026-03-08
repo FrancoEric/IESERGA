@@ -13,7 +13,7 @@ public class LevelButton : MonoBehaviour
 
     void Start()
     {
-        if(PlayerData.currentLevelIndexUnlocked >= levelIndex)
+        if(PlayerData.currentLevelIndexUnlocked == levelIndex)
         {
             isLocked = false;
             

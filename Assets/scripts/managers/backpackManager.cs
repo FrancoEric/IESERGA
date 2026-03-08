@@ -27,24 +27,26 @@ public class BackpackManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
+
+        EventBroadcaster.Instance.AddObserver(EventNames.FINISH_TRIGGER, copyLocalToMain);
     }
 
     public bool addItem(Item item, int amount)
     {
-        for(int i = 0; i < backpackData.Count; i++)
-            if(backpackData[i].itemType.Name == item.name)
+        for(int i = 0; i < localBackpack.Count; i++)
+            if(localBackpack[i].itemType.Name == item.name)
             {
-                backpackData[i].amount += amount;
+                localBackpack[i].amount += amount;
                 newItem = true;
                 return true;
             }
 
-        if(backpackData.Count < PlayerData.baseBackpackSize)
+        if(localBackpack.Count < PlayerData.baseBackpackSize)
         {
             BackpackData temp = new BackpackData();
             temp.itemType = item;
             temp.amount = amount;
-            backpackData.Add(temp);
+            localBackpack.Add(temp);
             newItem = true;
             return true;
         }
@@ -54,17 +56,17 @@ public class BackpackManager : MonoBehaviour
 
     public void removeItem(Item item, int amount)
     {
-        for(int i = 0; i < backpackData.Count; i++)
-            if(backpackData[i].itemType.Name == item.name)
+        for(int i = 0; i < localBackpack.Count; i++)
+            if(localBackpack[i].itemType.Name == item.name)
             {
-                backpackData[i].amount -= amount;
-                if(backpackData[i].amount <= 0)
-                    backpackData.RemoveAt(i);
+                localBackpack[i].amount -= amount;
+                if(localBackpack[i].amount <= 0)
+                    localBackpack.RemoveAt(i);
                 newItem = true;
             }
     }
 
-    public void copyLocalToMain()
+    void copyLocalToMain()
     {
         backpackData.Clear();
         foreach(BackpackData data in localBackpack)
