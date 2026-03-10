@@ -396,7 +396,7 @@ GameObject:
   - component: {fileID: 5149318625342874944}
   - component: {fileID: 613444082210234772}
   - component: {fileID: 8558512362006740312}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pointer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

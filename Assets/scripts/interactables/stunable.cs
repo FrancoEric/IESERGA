@@ -39,6 +39,7 @@ public class Stunable : Clickable
             stunDuration = PlayerData.currentStrength;
             StartCoroutine(stunFlash(Color.black, 0.3f));
             EventBroadcaster.Instance.PostEvent(EventNames.STUN_CONFIRMED);
+            Debug.Log("Stun confirmed");
         }
     }
 
@@ -75,10 +76,12 @@ public class Stunable : Clickable
         rb.AddForce((transform.position - player.transform.position).normalized * pushForce, ForceMode2D.Impulse);
 
         yield return new WaitForSeconds(stunDuration);
+        yield return null;
 
         // Restore original color
         sprite.color = ogColor;
 
+        rb.linearVelocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
     }
 }
