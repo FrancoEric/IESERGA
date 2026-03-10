@@ -20,6 +20,7 @@ static public class PlayerData
     public static float baseStaminaRegen = 5f;
     public static float sprintStaminaDrainMultiplier = 2.5f; //doesnt need a current ver
     public static float baseStrength = 1f; //stun duration basically
+    public static float basePushForce = 1f;
     public static float attackStaminaCost = 40f; //no current ver 
 
     //the player's current saved stats 
@@ -36,6 +37,7 @@ static public class PlayerData
     public static float currentStaminaDrain = baseStaminaDrain;
     public static float currentStaminaRegen = baseStaminaRegen;
     public static float currentStrength = baseStrength; 
+    public static float currentPushForce = basePushForce;
 
     //local vers of the current stats for instances 
     public static float localProtein = protein;
@@ -54,6 +56,7 @@ static public class PlayerData
     public static float localStaminaDrain = baseStaminaDrain;
     public static float localStaminaRegen = baseStaminaRegen;
     public static float localStrength = baseStrength; 
+    public static float localPushForce = basePushForce;
     public static void localToCurrent()
     {
         protein = localProtein;
@@ -72,6 +75,7 @@ static public class PlayerData
         currentStaminaDrain = localStaminaDrain;
         currentStaminaRegen = localStaminaRegen;
         currentStrength = localStrength;
+        currentPushForce = localPushForce;
     }
     public static void currentToLocal()
     {
@@ -91,6 +95,7 @@ static public class PlayerData
         localStaminaDrain = currentStaminaDrain;
         localStaminaRegen = currentStaminaRegen;
         localStrength = currentStrength;    
+        localPushForce = currentPushForce;
     }
 
     //the backpack stuff 

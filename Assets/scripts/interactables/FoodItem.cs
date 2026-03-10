@@ -77,7 +77,12 @@ public class FoodItem : MonoBehaviour
         {
             //clickableComp.isClicked = false;
 
-            BackpackManager.Instance.addItem(item, servingSize);
+            bool success = BackpackManager.Instance.addItem(item, servingSize);
+            if(!success)
+            {
+                Debug.Log("Backpack full! Could not add " + item.Name);
+                return;
+            }
 
             //Debug.Log("Ate " + foodName + ". Protein: " + PlayerData.protein + ", Carbs: " + PlayerData.carbs + ", Fats: " + PlayerData.fats);
 

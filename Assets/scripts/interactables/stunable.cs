@@ -2,15 +2,22 @@ using UnityEngine;
 using System.Collections;
 
 //doesnt control the duration drain
+//also pushes the entity
 public class Stunable : Clickable
 {
     [SerializeField] SpriteRenderer sprite;
+    Rigidbody2D rb;
+    GameObject player;
     Color ogColor;
     public float stunDuration {get; set;} = 0f;
+    public float pushForce {get; set;} = 0f;
 
     void Awake()
     {
         ogColor = sprite.color;
+        pushForce = PlayerData.localPushForce;
+        player = GameObject.FindGameObjectWithTag("Player");
+        rb = GetComponent<Rigidbody2D>();
     }
 
     public override void hoverStart()
@@ -52,6 +59,7 @@ public class Stunable : Clickable
         sprite.color = ogColor;
     }
 
+    //also handles pushing physics 
     IEnumerator stunFlash(Color targetColor, float colorMult)
     {
         Color halfColor = new Color(
@@ -63,9 +71,14 @@ public class Stunable : Clickable
 
         sprite.color = halfColor;
 
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.AddForce((transform.position - player.transform.position).normalized * pushForce, ForceMode2D.Impulse);
+
         yield return new WaitForSeconds(stunDuration);
 
         // Restore original color
         sprite.color = ogColor;
+
+        rb.bodyType = RigidbodyType2D.Kinematic;
     }
 }

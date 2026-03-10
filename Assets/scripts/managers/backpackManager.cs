@@ -56,14 +56,20 @@ public class BackpackManager : MonoBehaviour
 
     public void removeItem(Item item, int amount)
     {
+        //Debug.Log("item name: " + item.Name);
+
         for(int i = 0; i < localBackpack.Count; i++)
-            if(localBackpack[i].itemType.Name == item.name)
+        {
+            //Debug.Log("local backpack item name: " + localBackpack[i].itemType.Name);
+            if(localBackpack[i].itemType.Name == item.Name)
             {
                 localBackpack[i].amount -= amount;
                 if(localBackpack[i].amount <= 0)
                     localBackpack.RemoveAt(i);
                 newItem = true;
+                break;
             }
+        }
     }
 
     void copyLocalToMain()

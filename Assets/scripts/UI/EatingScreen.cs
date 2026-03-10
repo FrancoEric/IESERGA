@@ -31,7 +31,7 @@ public class EatingScreen : MonoBehaviour
     BackpackManager backpackManager;
     List<BackpackData> oglocalBackpack = new List<BackpackData>();
     EatingSlot[] slots = new EatingSlot[PlayerData.baseBackpackSize];
-    BackpackData currentData = new BackpackData(ItemLibrary.Instance.getItemByName("None"),0);
+    BackpackData currentData;
     int amount = 0;
     
     void Awake()
@@ -54,6 +54,11 @@ public class EatingScreen : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        currentData = new BackpackData(ItemLibrary.Instance.getItemByName("None"),0);
+    }
+
     void updateSlotData()
     {
         for(int i = 0; i < PlayerData.baseBackpackSize; i++)
@@ -68,7 +73,7 @@ public class EatingScreen : MonoBehaviour
     void updateText()
     {
         foodImg.sprite = currentData.itemType.sprite;
-        currentFoodText.text = currentData.itemType.name;
+        currentFoodText.text = currentData.itemType.Name;
         foodDescText.text = currentData.itemType.desc;
         currentAmountText.text = amount.ToString();
         servingsText.text = currentData.amount.ToString();

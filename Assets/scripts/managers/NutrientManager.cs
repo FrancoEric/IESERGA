@@ -1,5 +1,7 @@
 using UnityEngine;
 
+//not fully optimized
+//like not enough specific multipliers and not stat balanced
 public class NutrientManager : MonoBehaviour
 {
     [SerializeField] float proteinToStrengthMultiplier = 1.0f;
@@ -29,6 +31,7 @@ public class NutrientManager : MonoBehaviour
     public void updateLocalNutrients()
     {
         PlayerData.localStrength = PlayerData.currentStrength + (PlayerData.protein * proteinToStrengthMultiplier);
+        PlayerData.localPushForce = PlayerData.currentPushForce + (PlayerData.protein * proteinToStrengthMultiplier);
 
         PlayerData.localMaxHealth = PlayerData.currentMaxHealth + (PlayerData.protein * proteinToHealthMultiplier);
         PlayerData.localHealthRegenSpeed = PlayerData.currentHealthRegenSpeed + (PlayerData.fats * fatToHealthRegenMultiplier);
