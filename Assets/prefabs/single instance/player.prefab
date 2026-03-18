@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStamina
   stamSlider: {fileID: 8679251143097866433}
-  attackSlider: {fileID: 0}
+  attackSlider: {fileID: 753498510689191249}
   staminaRegenDelay: 2
 --- !u!58 &5417885066953307352
 CircleCollider2D:

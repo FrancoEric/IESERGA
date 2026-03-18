@@ -846,7 +846,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelSelection
   mainMenuSceneName: main menu
   levelSceneNames:
-  - eric's test
+  - level 1
 --- !u!4 &981167573
 Transform:
   m_ObjectHideFlags: 0

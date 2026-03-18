@@ -3,9 +3,9 @@ using UnityEngine;
 public class Clickable_Item : Clickable
 {
     [SerializeField] GameObject hoverObj;
-    public bool isClicked {get; private set;} = false;
+    public bool isClicked = false;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         hoverObj.SetActive(false);
     }
