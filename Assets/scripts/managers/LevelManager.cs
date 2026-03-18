@@ -21,6 +21,11 @@ public class LevelManager : MonoBehaviour
         backpackManagerInstance = BackpackManager.Instance;
     }
 
+    void OnDestroy()
+    {
+        EventBroadcaster.Instance.RemoveActionAtObserver(EventNames.FINISH_TRIGGER, backToLevels);
+    }
+
     void Update()
     {
         calorieGoalText.text = "Calorie Goal: " + calorieGoal.ToString();
@@ -38,6 +43,7 @@ public class LevelManager : MonoBehaviour
 
     void backToLevels()
     {
+        PlayerData.currentLevelIndexUnlocked++;
         UnityEngine.SceneManagement.SceneManager.LoadScene(levelSelectorSceneName);
     }
 }

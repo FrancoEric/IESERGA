@@ -847,6 +847,8 @@ MonoBehaviour:
   mainMenuSceneName: main menu
   levelSceneNames:
   - level 1
+  - level 2
+  - main menu
 --- !u!4 &981167573
 Transform:
   m_ObjectHideFlags: 0

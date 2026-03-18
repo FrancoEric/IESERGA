@@ -5,6 +5,7 @@ public class playerMove : MonoBehaviour
     PlayerInputHandler inputHandler;
     Rigidbody2D rb;
     float currentSpeed;
+    bool canMove = true;
 
     void Awake()
     {
@@ -13,6 +14,9 @@ public class playerMove : MonoBehaviour
         {
             Debug.LogError("Rigidbody2D component not found on " + gameObject.name);
         }
+
+        EventBroadcaster.Instance.AddObserver(EventNames.PLAYER_STOP_MOVEMENT, StopMovement);
+        EventBroadcaster.Instance.AddObserver(EventNames.PLAYER_START_MOVEMENT, StartMovement);
     }
 
     void Start()
@@ -23,6 +27,9 @@ public class playerMove : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(!canMove) 
+            return;
+
         Vector2 movement = inputHandler.moveInput;
         rb.linearVelocity = movement.normalized * currentSpeed;
     }
@@ -47,4 +54,16 @@ public class playerMove : MonoBehaviour
             currentSpeed = PlayerData.crawlSpeed;
         }
     }
+
+    void StopMovement()
+    {
+        canMove = false;
+        rb.linearVelocity = Vector2.zero;
+    }
+
+    void StartMovement()
+    {
+        canMove = true;
+    }
+
 }
