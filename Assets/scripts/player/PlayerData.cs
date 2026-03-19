@@ -17,7 +17,7 @@ static public class PlayerData
     public static float baseStamina = 100f;
     public static float baseInitialStaminaRatio = 0.3f;
     public static float baseStaminaDrain = 5f;
-    public static float baseStaminaRegen = 5f;
+    public static float baseStaminaRegen = 10f;
     public static float sprintStaminaDrainMultiplier = 2.5f; //doesnt need a current ver
     public static float baseStrength = 1f; //stun duration basically
     public static float basePushForce = 1f;
