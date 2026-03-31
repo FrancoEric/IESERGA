@@ -1616,7 +1616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7994597456439493212, guid: 74e13da611d8e50429d5c42f58944917, type: 3}
       propertyPath: proteinToPushMultiplier
-      value: 0.3
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7994597456439493212, guid: 74e13da611d8e50429d5c42f58944917, type: 3}
       propertyPath: fatToHealthRegenMultiplier
@@ -1636,7 +1636,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7994597456439493212, guid: 74e13da611d8e50429d5c42f58944917, type: 3}
       propertyPath: proteinToStrengthMultiplier
-      value: 0.1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 7994597456439493212, guid: 74e13da611d8e50429d5c42f58944917, type: 3}
       propertyPath: proteinToWalkSpeedMultiplier

@@ -18,6 +18,7 @@ public class HumanoidZombie : HumanoidMovement
     [SerializeField] float startIdleWaitTime = 5f;
     [SerializeField] float idleWaitTime = 3f;
     [SerializeField] Transform spriteObj;
+    [SerializeField] float stoppingDistanceBuffer = 0.5f;
     ZombieState currentState;
     Stunable stunComp;
     Vector2 idleLocation;
@@ -74,7 +75,9 @@ public class HumanoidZombie : HumanoidMovement
     void altertedUpdate()
     {
         float distance = (centerOfMass.transform.position - playerTransform.position).sqrMagnitude;
-        if(agent.stoppingDistance * agent.stoppingDistance < distance)
+        if(!isAtTarget && agent.stoppingDistance * agent.stoppingDistance < distance)
+            setTarget(targetLocation);
+        else if((agent.stoppingDistance + stoppingDistanceBuffer) * (agent.stoppingDistance + stoppingDistanceBuffer) < distance)
             setTarget(targetLocation);
         stopIfReachedTarget();
 

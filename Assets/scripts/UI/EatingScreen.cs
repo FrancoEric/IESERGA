@@ -194,6 +194,9 @@ public class EatingScreen : MonoBehaviour
         if(currentData.itemType.itemType == BackpackItemType.None)
             return;
 
+        if(PlayerData.calories >= levelManager.calorieGoal)
+            return;
+
         PlayerData.carbs += currentData.itemType.carbs * amount;
         PlayerData.protein += currentData.itemType.protein * amount;
         PlayerData.fats += currentData.itemType.fat * amount;

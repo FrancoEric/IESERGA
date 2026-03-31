@@ -13,16 +13,16 @@ static public class PlayerData
     public static float baseHealthRegenSpeed = 1f;
     public static float baseMaxHealthRegenAmount = 50f;
     public static float hpRegenDelay = 10f;
-    public static float crawlSpeed = 1f; //doesnt need a current ver
+    public static float crawlSpeed = 0.5f; //doesnt need a current ver
     public static float baseWalkSpeed = 3f;
     public static float baseRunSpeed = 5f;
     public static float baseStamina = 100f;
     public static float baseInitialStaminaRatio = 0.3f;
     public static float baseStaminaDrain = 5f;
-    public static float baseStaminaRegen = 20f;
+    public static float baseStaminaRegen = 25f;
     public static float sprintStaminaDrainMultiplier = 2.5f; //doesnt need a current ver
-    public static float baseStrength = 1f; //stun duration basically
-    public static float basePushForce = 1f;
+    public static float baseStrength = 2f; //stun duration basically
+    public static float basePushForce = 0.5f;
     public static float attackStaminaCost = 40f; //no current ver 
 
     //local vers of the current stats for instances 
