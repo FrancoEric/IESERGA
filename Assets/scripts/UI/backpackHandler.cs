@@ -5,7 +5,6 @@ using TMPro;
 
 public class BackpackHandler : MonoBehaviour
 {
-    [SerializeField] bool isLocal = true;
     [SerializeField] GameObject GridParent;
     [SerializeField] GameObject slotPrefab;
     [SerializeField] GameObject weightParent;
@@ -63,20 +62,10 @@ public class BackpackHandler : MonoBehaviour
 
         for(int i = 0; i < PlayerData.baseBackpackSize; i++)
         {
-            if(isLocal)
-            {
-                if(i < managerInstance.localBackpack.Count)
-                    slots[i].backpackData = managerInstance.localBackpack[i];
-                else    
-                    slots[i].backpackData = new BackpackData(ItemLibrary.Instance.getItemByName("None"),0);
-            }
-            else
-            {
-                if(i < managerInstance.backpackData.Count)
-                    slots[i].backpackData = managerInstance.backpackData[i];
-                else    
-                    slots[i].backpackData = new BackpackData(ItemLibrary.Instance.getItemByName("None"),0);
-            }
+            if(i < managerInstance.localBackpack.Count)
+                slots[i].backpackData = managerInstance.localBackpack[i];
+            else    
+                slots[i].backpackData = new BackpackData(ItemLibrary.Instance.getItemByName("None"),0);
         }
 
         weightUpdate();
@@ -95,16 +84,8 @@ public class BackpackHandler : MonoBehaviour
     {
         float total = 0f;
 
-        if(isLocal)
-        {
-            foreach(BackpackData data in managerInstance.localBackpack)
-                total += data.amount * data.itemType.weight;
-        }
-        else
-        {
-            foreach(BackpackData data in managerInstance.backpackData)
-                total += data.amount * data.itemType.weight;
-        }
+        foreach(BackpackData data in managerInstance.localBackpack)
+            total += data.amount * data.itemType.weight;
 
         totalWeightText.text = total.ToString() + "g";
         PlayerData.currentBackpackWeight = total;

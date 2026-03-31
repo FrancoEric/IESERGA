@@ -15,7 +15,6 @@ public class Stunable : Clickable
     void Awake()
     {
         ogColor = sprite.color;
-        pushForce = PlayerData.localPushForce;
         player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody2D>();
     }
@@ -37,6 +36,7 @@ public class Stunable : Clickable
         if(stunDuration <= 0 && PlayerData.localStamina >= PlayerData.attackStaminaCost)
         {
             stunDuration = PlayerData.localStrength;
+            pushForce = PlayerData.localPushForce;
             StartCoroutine(stunFlash(Color.black, 0.3f));
             EventBroadcaster.Instance.PostEvent(EventNames.STUN_CONFIRMED);
             Debug.Log("Stun confirmed");
