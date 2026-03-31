@@ -62,7 +62,7 @@ public class NutrientManager : MonoBehaviour
 
         PlayerData.localRunSpeed = PlayerData.baseRunSpeed + (PlayerData.protein * proteinToRunSpeedMultiplier);
         PlayerData.localWalkSpeed = PlayerData.baseWalkSpeed + (PlayerData.protein * proteinToWalkSpeedMultiplier);
-        PlayerData.currentWeightStaminaDrainMultiplier = PlayerData.baseWeightStaminaDrainMultiplier + (PlayerData.protein * proteinToWeightStaminaDrainMultiplier);
+        PlayerData.currentWeightStaminaDrainMultiplier = PlayerData.baseWeightStaminaDrainMultiplier + (PlayerData.baseWeightStaminaDrainMultiplier / (1 + PlayerData.protein * proteinToWeightStaminaDrainMultiplier));
     }
 
     void Update()

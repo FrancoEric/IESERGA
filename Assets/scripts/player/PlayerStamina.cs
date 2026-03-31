@@ -15,6 +15,12 @@ public class PlayerStamina : MonoBehaviour
         EventBroadcaster.Instance.AddObserver(EventNames.FINISHED_BREAKFAST, this.resetStamina);
     }
 
+    void OnDestroy()
+    {
+        EventBroadcaster.Instance.RemoveActionAtObserver(EventNames.STUN_CONFIRMED, this.attacked);
+        EventBroadcaster.Instance.RemoveActionAtObserver(EventNames.FINISHED_BREAKFAST, this.resetStamina);
+    }
+
     void Start()
     {
         inputHandler = PlayerInputHandler.Instance;
@@ -36,8 +42,10 @@ public class PlayerStamina : MonoBehaviour
         }
         else if(inputHandler.moveInput.magnitude > 0 && inputHandler.sprinting)
         {
-            PlayerData.localStamina -= (PlayerData.localStaminaDrain * PlayerData.sprintStaminaDrainMultiplier + (PlayerData.currentWeightStaminaDrainMultiplier * PlayerData.currentBackpackWeight)) * Time.deltaTime;
+            float drain = (PlayerData.localStaminaDrain * PlayerData.sprintStaminaDrainMultiplier + (PlayerData.currentWeightStaminaDrainMultiplier * PlayerData.currentBackpackWeight)) * Time.deltaTime;
+            PlayerData.localStamina -= drain;
             staminaRegenTimer = 0f;
+            //Debug.Log("stam drain: " + drain);
         }
         else
         {
