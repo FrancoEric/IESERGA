@@ -3,42 +3,49 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] float hpRegenDelay = 10f;
     [SerializeField] Slider hpSlider;
     [SerializeField] Slider extraHpSlider;
     float regenTimer = 0f;
 
     void Awake()
     {
-        
+        EventBroadcaster.Instance.AddObserver(EventNames.FINISHED_BREAKFAST, this.initHP);
+    }
+
+    void initHP()
+    {
+        PlayerData.localHealth = PlayerData.localMaxHealth;
+        PlayerData.localHealthRegenAmount = PlayerData.localMaxHealthRegenAmount;
     }
 
     public void takeDamage(float dmg)
     {
-        PlayerData.currentHealth -= dmg;
-        if(PlayerData.currentHealth < 0)
-            PlayerData.currentHealth = 0;
-        regenTimer = hpRegenDelay;
+        PlayerData.localHealth -= dmg;
+        if(PlayerData.localHealth < 0)
+            PlayerData.localHealth = 0;
+        regenTimer = PlayerData.hpRegenDelay;
     }
 
     void updateSlider()
     {
-        hpSlider.value = PlayerData.currentHealth / PlayerData.currentMaxHealth;
-        extraHpSlider.value = PlayerData.currentHealthRegenAmount / PlayerData.currentMaxHealthRegenAmount;
+        hpSlider.value = PlayerData.localHealth / PlayerData.localMaxHealth;
+        extraHpSlider.value = PlayerData.localHealthRegenAmount / PlayerData.localMaxHealthRegenAmount;
     }
 
     void Update()
     {
         regenTimer -= Time.deltaTime;
-        if(regenTimer <= 0 && PlayerData.currentHealthRegenAmount > 0 && PlayerData.currentHealth < PlayerData.currentMaxHealth)
+        if(regenTimer <= 0 && PlayerData.localHealthRegenAmount > 0 && PlayerData.localHealth < PlayerData.localMaxHealth)
         {
-            PlayerData.currentHealth += PlayerData.currentHealthRegenSpeed * Time.deltaTime;
-            PlayerData.currentHealthRegenAmount -= PlayerData.currentHealthRegenSpeed * Time.deltaTime;
+            float heal = PlayerData.localHealthRegenSpeed * Time.deltaTime;
+            PlayerData.localHealth += heal;
+            PlayerData.localHealthRegenAmount -= heal;
+            //Debug.Log(PlayerData.localHealthRegenAmount);
 
-            if(PlayerData.currentHealth > PlayerData.currentMaxHealth)
-                PlayerData.currentHealth = PlayerData.currentMaxHealth;
-            if(PlayerData.currentHealthRegenAmount < 0)
-                PlayerData.currentHealthRegenAmount = 0;
+            if(PlayerData.localHealth > PlayerData.localMaxHealth)
+                PlayerData.localHealth = PlayerData.localMaxHealth;
+            if(PlayerData.localHealthRegenAmount < 0)
+                PlayerData.localHealthRegenAmount = 0;
         }
 
         updateSlider();

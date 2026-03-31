@@ -25,8 +25,10 @@ public class EventNames
 	public const string FADE_FROM_BLACK = "FADE_FROM_BLACK";
 	public const string PAUSE_START = "PAUSE_START";
 	public const string PAUSE_END = "PAUSE_END";
+	public const string START_BREAKFAST = "START_BREAKFAST";
 	public const string FINISHED_BREAKFAST = "FINISHED_BREAKFAST";
 	public const string FINISH_TRIGGER = "FINISH_TRIGGER";
+	public const string PICKED_UP_ITEM = "PICKED_UP_ITEM";
 }
 
 

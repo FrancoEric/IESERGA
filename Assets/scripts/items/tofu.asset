@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: facc4f376fdf9884bb22744f704a7958, type: 3}
+  m_Name: tofu
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  itemType: 0
+  sprite: {fileID: -8631172244398230117, guid: 273f7aa301a57aa4fa2f8b99790169f3, type: 3}
+  Name: Tofu
+  desc: A block of Tofu. Tasty and very jiggly.
+  weight: 100
+  carbs: 2
+  fat: 5.4
+  protein: 8.1

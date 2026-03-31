@@ -11,6 +11,14 @@ public enum BackpackItemType
 
 public class BackpackManager : MonoBehaviour
 {
+    [System.Serializable]
+    struct startingFood
+    {
+        public string foodName;
+        public int amount;
+    }
+    [SerializeField] startingFood[] startingFoods;
+
     public static BackpackManager Instance {get; private set; }
     public List<BackpackData> backpackData {get;private set;} = new List<BackpackData>();
     public List<BackpackData> localBackpack {get;private set;} = new List<BackpackData>();
@@ -31,8 +39,22 @@ public class BackpackManager : MonoBehaviour
         EventBroadcaster.Instance.AddObserver(EventNames.FINISH_TRIGGER, copyLocalToMain);
     }
 
+    void Start()
+    {
+        foreach(startingFood item in startingFoods)
+        {
+            BackpackData temp = new BackpackData();
+            temp.itemType = ItemLibrary.Instance.getItemByName(item.foodName);
+            temp.amount = item.amount;
+            backpackData.Add(temp);
+        }
+    }
+
     public bool addItem(Item item, int amount)
     {
+        if(amount <= 0)
+            return false;
+
         for(int i = 0; i < localBackpack.Count; i++)
             if(localBackpack[i].itemType.Name == item.name)
             {

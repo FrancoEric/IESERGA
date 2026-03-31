@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: facc4f376fdf9884bb22744f704a7958, type: 3}
+  m_Name: chicken
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  itemType: 0
+  sprite: {fileID: -6958388381484283126, guid: 273f7aa301a57aa4fa2f8b99790169f3, type: 3}
+  Name: Chicken Drumstick
+  desc: A chicken drumstick. Crunchy and delicious.
+  weight: 100
+  carbs: 0
+  fat: 15.1
+  protein: 17.1

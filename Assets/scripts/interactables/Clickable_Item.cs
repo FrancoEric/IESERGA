@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Clickable_Item : Clickable
 {
-    [SerializeField] GameObject hoverObj;
+    [SerializeField] protected GameObject hoverObj;
     public bool isClicked = false;
 
     protected virtual void Awake()

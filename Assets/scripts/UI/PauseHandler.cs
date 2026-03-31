@@ -6,8 +6,12 @@ public class PauseHandler : MonoBehaviour
 {
     [SerializeField] GameObject pauseParent;
     [SerializeField] string levelSelectionSceneName = "level selection";
+    [SerializeField] Image pauseButtonImg;
+    [SerializeField] Sprite pauseSprite;
+    [SerializeField] Sprite resumeSprite;
     bool prevBool = false;
     bool isPaused = false;
+    bool pauseButton = false;
 
     void Awake()
     {
@@ -21,18 +25,22 @@ public class PauseHandler : MonoBehaviour
     {
         pauseParent.SetActive(true);
         Time.timeScale = 0;
+
+        pauseButtonImg.sprite = resumeSprite;
     }
 
     void stopPause()
     {
         pauseParent.SetActive(false);
         Time.timeScale = 1;
+
+        pauseButtonImg.sprite = pauseSprite;
     }
 
     void Update()
     {
         bool currentBool = PlayerInputHandler.Instance.pause;
-        if(currentBool != prevBool && currentBool)
+        if((currentBool != prevBool && currentBool) || pauseButton)
         {
             isPaused = !isPaused;
             if(isPaused)
@@ -43,6 +51,8 @@ public class PauseHandler : MonoBehaviour
             {
                 EventBroadcaster.Instance.PostEvent(EventNames.PAUSE_END);
             }
+
+            pauseButton = false;
         }
 
         prevBool = currentBool;
@@ -52,5 +62,10 @@ public class PauseHandler : MonoBehaviour
     {
         Time.timeScale = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene(levelSelectionSceneName);
+    }
+
+    public void pauseButtonFunc()
+    {
+        pauseButton = true;
     }
 }

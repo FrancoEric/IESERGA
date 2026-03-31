@@ -28,7 +28,10 @@ public class EatingScreen : MonoBehaviour
     [SerializeField] TextMeshProUGUI maxstamStat;
     [SerializeField] TextMeshProUGUI initstamStat;
     [SerializeField] TextMeshProUGUI stamregenStat;
+    [SerializeField] TextMeshProUGUI calorieGoalNumberText;
+    [SerializeField] bool needsCalorieReq = true; //for debugging 
     BackpackManager backpackManager;
+    LevelManager levelManager;
     List<BackpackData> oglocalBackpack = new List<BackpackData>();
     EatingSlot[] slots = new EatingSlot[PlayerData.baseBackpackSize];
     BackpackData currentData;
@@ -41,7 +44,7 @@ public class EatingScreen : MonoBehaviour
 
         foreach(BackpackData data in backpackManager.backpackData)
         {
-            oglocalBackpack.Add(data);
+            oglocalBackpack.Add(new BackpackData(data.itemType, data.amount));
         }
         intData();
 
@@ -52,11 +55,15 @@ public class EatingScreen : MonoBehaviour
             slot.GetComponentInChildren<Button>().onClick.AddListener(() => selectItem(index));
             slots[i] = slot.GetComponent<EatingSlot>();
         }
+
+        EventBroadcaster.Instance.PostEvent(EventNames.START_BREAKFAST);
     }
 
     void Start()
     {
         currentData = new BackpackData(ItemLibrary.Instance.getItemByName("None"),0);
+        levelManager = GameObject.FindWithTag("Level Manager").GetComponent<LevelManager>();
+        selectItem(0);
     }
 
     void updateSlotData()
@@ -78,7 +85,7 @@ public class EatingScreen : MonoBehaviour
         currentAmountText.text = amount.ToString();
         servingsText.text = currentData.amount.ToString();
         servingSizeText.text = currentData.itemType.weight.ToString() + "g";
-        caloriesText.text = currentData.itemType.calories.ToString();
+        caloriesText.text = currentData.itemType.calories().ToString();
         fatText.text = currentData.itemType.fat.ToString() + "g";
         carbsText.text = currentData.itemType.carbs.ToString() + "g";
         proteinText.text = currentData.itemType.protein.ToString() + "g";
@@ -100,9 +107,9 @@ public class EatingScreen : MonoBehaviour
 
     void updateStats()
     {
-        proteinStat.text = "Protein: " + PlayerData.localProtein.ToString();
-        carbStat.text = "Carbs: " + PlayerData.localCarbs.ToString();
-        fatStat.text = "Fats: " + PlayerData.localFats.ToString();
+        proteinStat.text = "Protein: " + PlayerData.protein.ToString();
+        carbStat.text = "Carbs: " + PlayerData.carbs.ToString();
+        fatStat.text = "Fats: " + PlayerData.fats.ToString();
         strengthStat.text = "Strength: " + PlayerData.localStrength.ToString();
         vitalityStat.text = "Vitality: " + PlayerData.localMaxHealth.ToString();
         woundrecStat.text = "Wound Recovery: " + PlayerData.localMaxHealthRegenAmount.ToString();
@@ -112,9 +119,13 @@ public class EatingScreen : MonoBehaviour
         stamregenStat.text = "Stamina Regen: " + PlayerData.localStaminaRegen.ToString();
     }
 
+    void updateCalorieText()
+    {
+        calorieGoalNumberText.text = PlayerData.calories.ToString() + " / " + levelManager.calorieGoal.ToString();
+    }
+
     public void selectItem(int index)
     {
-        Debug.Log("Clicked " + index);
         if(index >= backpackManager.localBackpack.Count)
             return;
 
@@ -125,14 +136,23 @@ public class EatingScreen : MonoBehaviour
             return;
         }
 
+        amount = 1;
         updateText();
+        //Debug.Log("Clicked " + index + ", item: " + backpackManager.localBackpack[index].itemType.itemType + ", amount: " + backpackManager.localBackpack[index].amount);
     }
 
     void intData()
     {
+        //Debug.Log("int data");
+
+        PlayerData.protein = 0;
+        PlayerData.carbs = 0;
+        PlayerData.fats = 0;
+        PlayerData.calories = 0;
+
         backpackManager.localBackpack.Clear();
         foreach(BackpackData data in oglocalBackpack)
-            backpackManager.localBackpack.Add(data);
+            backpackManager.localBackpack.Add(new BackpackData(data.itemType, data.amount));;
 
         if(backpackManager.localBackpack.Count == 0)
         {
@@ -174,10 +194,11 @@ public class EatingScreen : MonoBehaviour
         if(currentData.itemType.itemType == BackpackItemType.None)
             return;
 
-        PlayerData.localCarbs += currentData.itemType.carbs * amount;
-        PlayerData.localProtein += currentData.itemType.protein * amount;
-        PlayerData.localFats += currentData.itemType.fat * amount;
-        NutrientManager.Instance.updateLocalNutrients();
+        PlayerData.carbs += currentData.itemType.carbs * amount;
+        PlayerData.protein += currentData.itemType.protein * amount;
+        PlayerData.fats += currentData.itemType.fat * amount;
+        PlayerData.calories += currentData.itemType.calories() * amount;
+        //NutrientManager.Instance.updateLocalNutrients();
         backpackManager.removeItem(currentData.itemType, amount);
 
         if(backpackManager.localBackpack.Count == 0)
@@ -200,12 +221,13 @@ public class EatingScreen : MonoBehaviour
     public void resetButton()
     {
         intData();
-        PlayerData.currentToLocal();
+        //PlayerData.currentToLocal();
     }
 
     public void finishEatingButton()
     {
-        StartCoroutine(exit());
+        if(PlayerData.calories >= levelManager.calorieGoal || !needsCalorieReq)
+            StartCoroutine(exit());
     }
 
     IEnumerator exit()
@@ -223,5 +245,6 @@ public class EatingScreen : MonoBehaviour
     {
         updateStats();
         updateSlotData();
+        updateCalorieText();
     }
 }

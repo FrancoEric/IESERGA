@@ -11,8 +11,8 @@ public class PlayerStamina : MonoBehaviour
 
     void Awake()
     {
-        resetStamina();
         EventBroadcaster.Instance.AddObserver(EventNames.STUN_CONFIRMED, this.attacked);
+        EventBroadcaster.Instance.AddObserver(EventNames.FINISHED_BREAKFAST, this.resetStamina);
     }
 
     void Start()
@@ -23,40 +23,44 @@ public class PlayerStamina : MonoBehaviour
     void Update()
     {
         updateStamina();
-        stamSlider.value = PlayerData.currentStamina / PlayerData.currentMaxStamina;
-        attackSlider.value = PlayerData.attackStaminaCost / PlayerData.currentMaxStamina;
+        stamSlider.value = PlayerData.localStamina / PlayerData.localMaxStamina;
+        attackSlider.value = PlayerData.attackStaminaCost / PlayerData.localMaxStamina;
     }
 
     void updateStamina()
     {
         if(inputHandler.moveInput.magnitude > 0 && !inputHandler.sprinting)
         {
-            PlayerData.currentStamina -= (PlayerData.currentStaminaDrain + (PlayerData.currentWeightStaminaDrainMultiplier * PlayerData.currentBackpackWeight)) * Time.deltaTime;
+            PlayerData.localStamina -= (PlayerData.localStaminaDrain + (PlayerData.currentWeightStaminaDrainMultiplier * PlayerData.currentBackpackWeight)) * Time.deltaTime;
             staminaRegenTimer = 0f;
         }
         else if(inputHandler.moveInput.magnitude > 0 && inputHandler.sprinting)
         {
-            PlayerData.currentStamina -= (PlayerData.currentStaminaDrain * PlayerData.sprintStaminaDrainMultiplier + (PlayerData.currentWeightStaminaDrainMultiplier * PlayerData.currentBackpackWeight)) * Time.deltaTime;
+            PlayerData.localStamina -= (PlayerData.localStaminaDrain * PlayerData.sprintStaminaDrainMultiplier + (PlayerData.currentWeightStaminaDrainMultiplier * PlayerData.currentBackpackWeight)) * Time.deltaTime;
             staminaRegenTimer = 0f;
         }
         else
         {
             staminaRegenTimer += Time.deltaTime;
             if(staminaRegenTimer >= staminaRegenDelay)
-                PlayerData.currentStamina += PlayerData.currentStaminaRegen * Time.deltaTime;
+                PlayerData.localStamina += PlayerData.localStaminaRegen * Time.deltaTime;
+
+            if(PlayerData.localStamina > PlayerData.localMaxStamina)
+                PlayerData.localStamina = PlayerData.localMaxStamina;
         }
 
-        if(PlayerData.currentStamina < 0)
-            PlayerData.currentStamina = 0;
+        if(PlayerData.localStamina < 0)
+            PlayerData.localStamina = 0;
     }
 
     public void resetStamina()
     {
-        PlayerData.currentStamina = PlayerData.currentMaxStamina * PlayerData.currentInitialStaminaRatio;
+        PlayerData.localStamina = PlayerData.localMaxStamina * PlayerData.localInitialStaminaRatio;
     }
 
     void attacked()
     {
-        PlayerData.currentStamina -= PlayerData.attackStaminaCost;
+        PlayerData.localStamina -= PlayerData.attackStaminaCost;
+        staminaRegenTimer = 0f;
     }
 }

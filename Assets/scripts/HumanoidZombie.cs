@@ -17,6 +17,7 @@ public class HumanoidZombie : HumanoidMovement
     [SerializeField] float idleRoamRadius = 5f;
     [SerializeField] float startIdleWaitTime = 5f;
     [SerializeField] float idleWaitTime = 3f;
+    [SerializeField] Transform spriteObj;
     ZombieState currentState;
     Stunable stunComp;
     Vector2 idleLocation;
@@ -26,6 +27,7 @@ public class HumanoidZombie : HumanoidMovement
     float attackTimer = 0f;
     Transform playerTransform;
     PlayerHealth hpComp;
+    float prevAngle = 0f;
 
     override protected void Awake()
     {
@@ -119,5 +121,18 @@ public class HumanoidZombie : HumanoidMovement
         {
             startIdle();
         }
+
+        rotateSprite();
+    }
+
+    void rotateSprite()
+    {
+        Vector3 dir = agent.velocity;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+        if(dir.magnitude > 0)
+            prevAngle = angle;
+
+        spriteObj.rotation = Quaternion.Euler(0f, 0f, prevAngle + 90);
     }
 }

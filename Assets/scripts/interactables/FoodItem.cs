@@ -6,16 +6,11 @@ public class FoodItem : MonoBehaviour
 {
     [SerializeField] string itemName;
     [SerializeField] int servingSize;
+    [SerializeField] float gramMultiplier = 1; //all food items are 100 grams, multiply 100 to fit a serving size of that food
     [SerializeField] Image foodPic;
+    [SerializeField] SpriteRenderer foodSprite;
     [SerializeField] TextMeshPro foodNameText;
     [SerializeField] TextMeshPro descriptionText;
-    [SerializeField] TextMeshPro strengthText;
-    [SerializeField] TextMeshPro maxhpText;
-    [SerializeField] TextMeshPro hpregenText;
-    [SerializeField] TextMeshPro maxstamText;
-    [SerializeField] TextMeshPro initstamText;
-    [SerializeField] TextMeshPro stamregenText;
-    [SerializeField] TextMeshPro speedText;
     [SerializeField] TextMeshPro servingsText;
     [SerializeField] TextMeshPro servingSizeText;
     [SerializeField] TextMeshPro caloriesText;
@@ -36,39 +31,19 @@ public class FoodItem : MonoBehaviour
         }
 
         foodPic.sprite = item.sprite;
+        foodSprite.sprite = item.sprite;
 
-        item.calories = item.fat * 9 + item.carbs * 4 + item.protein * 4;
-        caloriesText.text = item.calories.ToString();
+        //item.calories = (item.fat * 9 + item.carbs * 4 + item.protein * 4) * gramMultiplier;
+        caloriesText.text = item.calories().ToString();
 
         foodNameText.text = item.Name;
         descriptionText.text = item.desc;
         servingsText.text = servingSize.ToString();
-        servingSizeText.text = item.weight.ToString() + "g";
+        servingSizeText.text = (item.weight * gramMultiplier).ToString() + "g";
 
-        proteinsText.text = item.protein.ToString() + "g";
-        fatText.text = item.fat.ToString() + "g";
-        carbsText.text = item.carbs.ToString() + "g";
-
-        //no amount balancing yet, just show the stat increase if there is any
-        if(item.protein > 0)
-        {
-            strengthText.text = "Strength ↑";
-            maxhpText.text = "Vitality ↑";
-            speedText.text = "Mobility ↑";
-        }
-
-        if(item.carbs > 0)
-        {
-            maxstamText.text = "Max Stamina ↑";
-            initstamText.text = "Initial Stamina ↑";
-        }
-
-        if(item.fat > 0)
-        {
-            hpregenText.text = "Wound Recovery ↑";
-            stamregenText.text = "Stamina Regen ↑";
-            maxstamText.text = "Max Stamina ↑";
-        }
+        proteinsText.text = (item.protein * gramMultiplier).ToString() + "g";
+        fatText.text = (item.fat * gramMultiplier).ToString() + "g";
+        carbsText.text = (item.carbs * gramMultiplier).ToString() + "g";
     }
 
     void Update()
@@ -86,6 +61,7 @@ public class FoodItem : MonoBehaviour
 
             //Debug.Log("Ate " + foodName + ". Protein: " + PlayerData.protein + ", Carbs: " + PlayerData.carbs + ", Fats: " + PlayerData.fats);
 
+            EventBroadcaster.Instance.PostEvent(EventNames.PICKED_UP_ITEM);
             gameObject.SetActive(false);
         }
     }

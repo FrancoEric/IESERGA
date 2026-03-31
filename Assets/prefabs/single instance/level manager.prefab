@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8825404603265935214}
   m_Layer: 0
   m_Name: level manager
-  m_TagString: Untagged
+  m_TagString: Level Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   calorieGoal: 1200
+  nextCalorieGoal: 0
   levelSelectorSceneName: level selection
   calorieGoalText: {fileID: 0}
   currentCaloriesText: {fileID: 0}

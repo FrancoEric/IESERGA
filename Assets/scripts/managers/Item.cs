@@ -11,5 +11,8 @@ public class Item : ScriptableObject
     public float carbs;
     public float fat;
     public float protein;
-    public float calories;
+    public float calories()
+    {
+        return fat * 9 + carbs * 4 + protein * 4;
+    }
 }

@@ -5,7 +5,8 @@ using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] float calorieGoal;
+    [SerializeField] public float calorieGoal;
+    [SerializeField] public float nextCalorieGoal;
     [SerializeField] string levelSelectorSceneName = "level selection";
     [SerializeField] TextMeshProUGUI calorieGoalText;
     [SerializeField] TextMeshProUGUI currentCaloriesText;
@@ -13,6 +14,8 @@ public class LevelManager : MonoBehaviour
 
     void Awake()
     {
+        //PlayerData.currentToLocal();
+
         EventBroadcaster.Instance.AddObserver(EventNames.FINISH_TRIGGER, backToLevels);
     }
 
@@ -28,15 +31,15 @@ public class LevelManager : MonoBehaviour
 
     void Update()
     {
-        calorieGoalText.text = "Calorie Goal: " + calorieGoal.ToString();
+        calorieGoalText.text = "Next Calorie Goal: " + nextCalorieGoal.ToString();
         currentCaloriesText.text = getCurrentCalories().ToString();
     }
 
-    float getCurrentCalories()
+    public float getCurrentCalories()
     {
         float calories = 0;
         foreach(BackpackData data in backpackManagerInstance.localBackpack)
-            calories += data.itemType.calories * data.amount;
+            calories += data.itemType.calories() * data.amount;
 
         return calories;
     }

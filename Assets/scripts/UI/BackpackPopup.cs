@@ -30,7 +30,7 @@ public class BackpackPopup : MonoBehaviour
         nameText.text = currentData.itemType.name;
         descText.text = currentData.itemType.desc;
         weightText.text = "Total Weight: " + (currentData.itemType.weight * currentData.amount).ToString() + "g";
-        caloriesText.text = "Total Calories: " + (currentData.itemType.calories * currentData.amount).ToString();
+        caloriesText.text = "Total Calories: " + (currentData.itemType.calories() * currentData.amount).ToString();
         proteinText.text = "Total Protein: " + (currentData.itemType.protein * currentData.amount).ToString();
         carbsText.text = "Total Carbs: " + (currentData.itemType.carbs * currentData.amount).ToString();
         fatText.text = "Total Fat: " + (currentData.itemType.fat * currentData.amount).ToString();

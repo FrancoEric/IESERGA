@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: facc4f376fdf9884bb22744f704a7958, type: 3}
+  m_Name: pb
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  itemType: 0
+  sprite: {fileID: 3803861454148418401, guid: b3a5065c667fc954c9dd4a60265b695c, type: 3}
+  Name: Peanut Butter
+  desc: A jar of peanut butter. Has a very delicious nutty flavor.
+  weight: 100
+  carbs: 26.4
+  fat: 45.4
+  protein: 25.4

@@ -37,13 +37,13 @@ public class PlayerStatsUIHandler : MonoBehaviour
         proteinText.text = "Protein: " + PlayerData.protein.ToString();
         carbsText.text = "Carbs: " + PlayerData.carbs.ToString();
         fatText.text = "Fat: " + PlayerData.fats.ToString();
-        strengthText.text = "Strength: " + PlayerData.currentStrength.ToString();
-        vitalityText.text = "Vitality: " + PlayerData.currentMaxHealth.ToString();
-        recoveryText.text = "Wound Recovery: " + PlayerData.currentHealthRegenSpeed.ToString();
-        mobilityText.text = "Mobility: " + PlayerData.currentRunSpeed.ToString();
-        maxStaminaText.text = "Max Stamina: " + PlayerData.currentMaxStamina.ToString();
-        initStaminaText.text = "Initial Stamina: " + PlayerData.currentInitialStaminaRatio.ToString();
-        stamregenText.text = "Stamina Regen: " + PlayerData.currentStaminaRegen.ToString();
+        strengthText.text = "Strength: " + PlayerData.localStrength.ToString();
+        vitalityText.text = "Vitality: " + PlayerData.localMaxHealth.ToString();
+        recoveryText.text = "Wound Recovery: " + PlayerData.localHealthRegenSpeed.ToString();
+        mobilityText.text = "Mobility: " + PlayerData.localRunSpeed.ToString();
+        maxStaminaText.text = "Max Stamina: " + PlayerData.localMaxStamina.ToString();
+        initStaminaText.text = "Initial Stamina: " + PlayerData.localInitialStaminaRatio.ToString();
+        stamregenText.text = "Stamina Regen: " + PlayerData.localStaminaRegen.ToString();
 
         playerInputCheck();
     }

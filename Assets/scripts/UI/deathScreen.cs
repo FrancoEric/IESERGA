@@ -15,7 +15,7 @@ public class DeathScreen : MonoBehaviour
 
     void Update()
     {
-        if(PlayerData.currentHealth <= 0 && first)
+        if(PlayerData.localHealth <= 0 && first)
         {
             first = false;
             StartCoroutine(deathSequence());
