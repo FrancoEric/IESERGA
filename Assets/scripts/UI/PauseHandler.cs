@@ -17,8 +17,8 @@ public class PauseHandler : MonoBehaviour
     {
         pauseParent.SetActive(false);
 
-        EventBroadcaster.Instance.AddObserver(EventNames.PAUSE_START, pauseStart);
-        EventBroadcaster.Instance.AddObserver(EventNames.PAUSE_END, stopPause);
+        EventBroadcaster.Instance.AddObserver(EventNames.PAUSE_START, this.pauseStart);
+        EventBroadcaster.Instance.AddObserver(EventNames.PAUSE_END, this.stopPause);
     }
 
     void pauseStart()
