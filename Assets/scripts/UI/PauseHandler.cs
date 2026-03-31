@@ -4,7 +4,7 @@ using System.Collections;
 
 public class PauseHandler : MonoBehaviour
 {
-    [SerializeField] GameObject pauseParent;
+    GameObject pauseParent;
     [SerializeField] string levelSelectionSceneName = "level selection";
     [SerializeField] Image pauseButtonImg;
     [SerializeField] Sprite pauseSprite;
@@ -15,10 +15,17 @@ public class PauseHandler : MonoBehaviour
 
     void Awake()
     {
+        pauseParent = transform.GetChild(0).gameObject;
         pauseParent.SetActive(false);
 
         EventBroadcaster.Instance.AddObserver(EventNames.PAUSE_START, this.pauseStart);
         EventBroadcaster.Instance.AddObserver(EventNames.PAUSE_END, this.stopPause);
+    }
+
+    void OnDestroy()
+    {
+        EventBroadcaster.Instance.RemoveActionAtObserver(EventNames.PAUSE_START, this.pauseStart);
+        EventBroadcaster.Instance.RemoveActionAtObserver(EventNames.PAUSE_END, this.stopPause);
     }
 
     void pauseStart()
